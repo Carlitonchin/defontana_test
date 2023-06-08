@@ -14,7 +14,7 @@ var optionsBuilder = new DbContextOptionsBuilder<PruebaContext>()
 
 var db = new PruebaContext(optionsBuilder.Options);
 var d = new Repo(db);
-Console.WriteLine("Cargando informacion de las ventas en los ultimos 30 dias...:\n");
+Console.WriteLine("Cargando informacion de las ventas en los ultimos 30 dias:\n...");
 var data = new Data(db, 30);
 
 //Info ventas
@@ -30,10 +30,7 @@ Console.WriteLine("- " + data.BestProducto);
 //////------------------------------
 
 //Mejor Local
-var bestLocal = data.BestLocal;
-Console.WriteLine("- Mejor Local: {0} | Monto de Ventas: {1}",
-        bestLocal.Item1.IdLocal + " - " + bestLocal.Item1.Nombre,
-        bestLocal.Item2);
+Console.WriteLine("- " + data.BestLocal);
 
 Console.Write("\nPresiona Enter para finalizar...");
 Console.ReadLine();

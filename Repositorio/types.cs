@@ -46,3 +46,20 @@ public class BestProducto{
           this.Monto);
     }
 }
+
+public class BestLocal{
+    int Monto {get;}
+    Local Local{get;}
+
+    public BestLocal(int monto, Local local){
+        this.Monto = monto;
+        this.Local = local;
+    }
+
+    public override string ToString()
+    {
+        return String.Format("Mejor Local: {0} | Monto de Ventas: {1}",
+        this.Local.IdLocal + " - " + this.Local.Nombre,
+        this.Monto);
+    }
+}

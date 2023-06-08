@@ -41,7 +41,7 @@ public class Data{
 
         return new BestProducto(monto,prod);
     }}
-    public Tuple<Local, int> BestLocal{
+    public BestLocal BestLocal{
         get{
             var ventas = this.baseData.DistinctBy(d=>d.IdVenta);
             var groupLocals = ventas.GroupBy(m=>m.IdVentaNavigation.IdLocal);
@@ -49,11 +49,11 @@ public class Data{
                                     .FirstOrDefault();
 
             if(bestLocalGroup == null)
-                return new Tuple<Local, int>(new Local(),0);
+                return new BestLocal(0,new Local());
 
             int monto = bestLocalGroup.Sum(g=>g.IdVentaNavigation.Total);
             Local local = bestLocalGroup.First().IdVentaNavigation.IdLocalNavigation;
 
-            return new Tuple<Local, int>(local, monto);
+            return new BestLocal(monto, local);
         }}
 }
