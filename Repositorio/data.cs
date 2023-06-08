@@ -18,32 +18,29 @@ public class Data{
         return new DataVentas(totalVentas, montoTotal);
     }
     }
-
-    public Tuple<DateTime, int> BestVenta {
+    public BestDiaVenta BestDiaVenta {
         get{
         var best = this.baseData.MaxBy(m=>m.IdVentaNavigation.Total);
         if(best == null)
-            return new Tuple<DateTime, int>(DateTime.MinValue,0);
+            return new BestDiaVenta(0, DateTime.MinValue);
 
-        return new Tuple<DateTime, int>(best.IdVentaNavigation.Fecha, best.IdVentaNavigation.Total);
+        return new BestDiaVenta(best.IdVentaNavigation.Total,best.IdVentaNavigation.Fecha);
     }
     }
-
-    public Tuple<Producto, int> BestProducto{
+    public BestProducto BestProducto{
         get{
         var groupProducts = this.baseData.GroupBy(m=>m.IdProducto);
         var bestProductGroup = groupProducts.OrderByDescending(g=>g.Sum(v=>v.PrecioUnitario*v.Cantidad))
                                         .FirstOrDefault();
 
         if(bestProductGroup == null)
-            return new Tuple<Producto, int>(new Producto(),0);
+            return new BestProducto(0,new Producto());
 
         int monto = bestProductGroup.Sum(m=>m.Cantidad*m.PrecioUnitario);
         Producto prod = bestProductGroup.First().IdProductoNavigation;
 
-        return new Tuple<Producto, int>(prod, monto);
+        return new BestProducto(monto,prod);
     }}
-
     public Tuple<Local, int> BestLocal{
         get{
             var ventas = this.baseData.DistinctBy(d=>d.IdVenta);

@@ -1,17 +1,17 @@
 using defontana.Models;
 
 namespace defontana.Repositorio;
-internal class Repo{
+public class Repo{
     private PruebaContext db;
 
     internal Repo(PruebaContext db){
         this.db = db;
     }
-    internal IEnumerable<VentaDetalle> getLastDaysVentaDetalles(int days){
+    public IEnumerable<VentaDetalle> getLastDaysVentaDetalles(int days){
         DateTime today = DateTime.Now;
         today = new DateTime(today.Year, today.Month, today.Day,0,0,0,0,0);
         DateTime pastDays = today.Subtract(TimeSpan.FromDays(days));
-        Console.WriteLine(pastDays);
+
         var resp = from ventaDetalle in db.VentaDetalles 
                     join venta in db.Venta on ventaDetalle.IdVenta equals venta.IdVenta
                     join producto in db.Productos on ventaDetalle.IdProducto equals producto.IdProducto
@@ -51,6 +51,6 @@ internal class Repo{
                         }
                     };
 
-        return resp;
+        return resp.ToList();
     }
 }
