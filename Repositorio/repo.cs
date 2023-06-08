@@ -1,6 +1,6 @@
 using defontana.Models;
 
-namespace Repositorio;
+namespace defontana.Repositorio;
 internal class Repo{
     private PruebaContext db;
 
