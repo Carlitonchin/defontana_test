@@ -25,10 +25,6 @@ public partial class PruebaContext : DbContext
 
     public virtual DbSet<Ventum> Venta { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=lab-defontana.caporvnn6sbh.us-east-1.rds.amazonaws.com,1433;Database=Prueba;User ID=ReadOnly;Password=d*3PSf2MmRX9vJtA5sgwSphCVQ26*T53uU;MultipleActiveResultSets=True;Encrypt=False;");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Local>(entity =>
