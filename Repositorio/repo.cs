@@ -1,11 +1,13 @@
 using defontana.Models;
 
-namespace defontana.Repositorio;
-
-public class Repositorio{
+namespace Repositorio;
+internal class Repo{
     private PruebaContext db;
-    private IEnumerable<VentaDetalle> baseData;
-    private IEnumerable<VentaDetalle> getLastDaysVentaDetalles(int days){
+
+    internal Repo(PruebaContext db){
+        this.db = db;
+    }
+    internal IEnumerable<VentaDetalle> getLastDaysVentaDetalles(int days){
         DateTime today = DateTime.Now;
         today = new DateTime(today.Year, today.Month, today.Day,0,0,0,0,0);
         DateTime pastDays = today.Subtract(TimeSpan.FromDays(days));
@@ -50,16 +52,5 @@ public class Repositorio{
                     };
 
         return resp;
-    }
-    public Repositorio(PruebaContext db, int days){
-        this.db =db;
-        this.baseData = this.getLastDaysVentaDetalles(days);
-    }
-
-    public Tuple<int, int> GetDataVentas(){
-        var totalVentas = this.baseData.DistinctBy(d=>d.IdVenta).Count();
-        var montoTotal = this.baseData.Sum(d=>d.PrecioUnitario * d.Cantidad);
-
-        return new Tuple<int, int>(montoTotal, totalVentas);
     }
 }
