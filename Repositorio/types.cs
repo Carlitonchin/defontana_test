@@ -82,3 +82,23 @@ public class BestMarca{
         this.Costo, this.Ventas, this.Ventas - this.Costo);
     }
 }
+
+public class DataLocal{
+    public Local Local{get;}
+    public Producto Producto{get;}
+    public int UnidadesVendidas{get;}
+
+    public DataLocal(Local local, Producto producto, int cantUnidades){
+        this.Local = local;
+        this.Producto = producto;
+        this.UnidadesVendidas = cantUnidades;
+    }
+
+    public override string ToString()
+    {
+        return String.Format("{0} --> {1} ({2} unidades vendidas)",
+        this.Local.IdLocal + " - " + this.Local.Nombre,
+        this.Producto.IdProducto + " - " + this.Producto.Nombre,
+        this.UnidadesVendidas);
+    }
+}

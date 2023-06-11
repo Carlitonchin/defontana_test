@@ -32,6 +32,14 @@ Console.WriteLine("- " + data.BestLocal);
 //Mejor Marca
 Console.WriteLine("- " + data.BestMarca);
 
+//Producto mas vendido por local
+int index = 1;
+Console.WriteLine("- Producto mas vendido por local");
+foreach(var item in data.BestProductoByLocal){
+     Console.WriteLine("       " + item);
+     index++;
+}
+
 Console.Write("\nPresiona Enter para finalizar...");
 Console.ReadLine();
 

@@ -77,4 +77,42 @@ public class Data{
             return new BestMarca(costo, ventas, marca);
         }
     }
+
+    public IEnumerable<DataLocal> BestProductoByLocal{
+    get{
+        var localGroup = 
+        this.baseData
+        .GroupBy(m=>m.IdVentaNavigation.IdLocal)
+        .OrderBy(l=>l.Key);
+
+        if(localGroup == null)
+        return new List<DataLocal>();
+
+        return makeDataLocal(localGroup);
+    }
+}
+
+    private IEnumerable<DataLocal> makeDataLocal(IOrderedEnumerable<IGrouping<long, VentaDetalle>> localGroup){
+        foreach(var item in localGroup){
+            var bestProdGroup = item
+                            .OrderBy(m=>m.IdProducto)
+                            .GroupBy(m=>m.IdProducto)
+                            .OrderByDescending(m=>m.Sum(p=>p.Cantidad))
+                            .FirstOrDefault();
+
+            if(bestProdGroup == null)
+                continue;
+
+            var bestProd = bestProdGroup.FirstOrDefault();
+
+            if(bestProd == null)
+                continue;
+
+            var local = bestProd.IdVentaNavigation.IdLocalNavigation;
+            var producto = bestProd.IdProductoNavigation;
+            var unidadesVendidas = bestProdGroup.Sum(m=>m.Cantidad);
+            
+            yield return new DataLocal(local, producto, unidadesVendidas);
+        }
+    }
 }
