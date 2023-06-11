@@ -10,7 +10,7 @@ El <i>Connection String</i> fue publicado en el repositorio por un tema de facil
 
  Las queries listas para ejecutar directamente en SQL Management Studio se encuentran dentro de la carpeta queries (hay un archivo para cada pregunta)
 
- En las preguntas donde se pedía obtener el producto con mayor monto en ventas, el dia, la marca, etc, no se tuvo en cuenta la existencia de posibles empates entre más de un producto, dia, marca, etc, por lo que en estos casos la respuesta va a ser cualquiera de los elementos implicados en el empate
+ En las preguntas donde se pedía obtener el producto con mayor monto en ventas, la marca, etc, no se tuvo en cuenta la existencia de posibles empates entre más de un producto, marca, etc, por lo que en estos casos la respuesta va a ser cualquiera de los elementos implicados en el empate
 
  Instrucciones para ejecutar el proyecto:
  ```bash
