@@ -19,18 +19,18 @@ var data = new Data(db, 30);
 
 //Info ventas
 Console.WriteLine("- " + data.DataVentas);
-//--------------------------------------
 
 //Mejor venta
 Console.WriteLine("- " + data.BestDiaVenta);
-/////////////////////////////
 
 //Mejor Producto
 Console.WriteLine("- " + data.BestProducto);
-//////------------------------------
 
 //Mejor Local
 Console.WriteLine("- " + data.BestLocal);
+
+//Mejor Marca
+Console.WriteLine("- " + data.BestMarca);
 
 Console.Write("\nPresiona Enter para finalizar...");
 Console.ReadLine();

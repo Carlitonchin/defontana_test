@@ -29,9 +29,10 @@ public class Data{
     }
     public BestProducto BestProducto{
         get{
-        var groupProducts = this.baseData.GroupBy(m=>m.IdProducto);
-        var bestProductGroup = groupProducts.OrderByDescending(g=>g.Sum(v=>v.PrecioUnitario*v.Cantidad))
-                                        .FirstOrDefault();
+        var bestProductGroup = 
+        this.baseData.GroupBy(m=>m.IdProducto)
+        .OrderByDescending(g=>g.Sum(v=>v.PrecioUnitario*v.Cantidad))
+        .FirstOrDefault();
 
         if(bestProductGroup == null)
             return new BestProducto(0,new Producto());
@@ -43,10 +44,11 @@ public class Data{
     }}
     public BestLocal BestLocal{
         get{
-            var ventas = this.baseData.DistinctBy(d=>d.IdVenta);
-            var groupLocals = ventas.GroupBy(m=>m.IdVentaNavigation.IdLocal);
-            var bestLocalGroup = groupLocals.OrderByDescending(g=>g.Sum(v=>v.IdVentaNavigation.Total))
-                                    .FirstOrDefault();
+            var bestLocalGroup = 
+            this.baseData.DistinctBy(d=>d.IdVenta)
+            .GroupBy(m=>m.IdVentaNavigation.IdLocal)
+            .OrderByDescending(g=>g.Sum(v=>v.IdVentaNavigation.Total))
+            .FirstOrDefault();
 
             if(bestLocalGroup == null)
                 return new BestLocal(0,new Local());
@@ -56,4 +58,23 @@ public class Data{
 
             return new BestLocal(monto, local);
         }}
+
+    public BestMarca BestMarca{
+        get{
+            var bestMarcaGroup = 
+            this.baseData.GroupBy(m=>m.IdProductoNavigation.IdMarca)
+            .OrderByDescending(g=>g.Sum(m=>{
+                return m.Cantidad*m.PrecioUnitario - (m.Cantidad * m.IdProductoNavigation.CostoUnitario);
+            })).FirstOrDefault();
+
+            if(bestMarcaGroup == null)
+            return new BestMarca(0,0, new Marca());
+
+            var costo = bestMarcaGroup.Sum(g=>g.Cantidad*g.IdProductoNavigation.CostoUnitario);
+            var ventas = bestMarcaGroup.Sum(g=>g.Cantidad*g.PrecioUnitario);
+            var marca = bestMarcaGroup.First().IdProductoNavigation.IdMarcaNavigation;
+
+            return new BestMarca(costo, ventas, marca);
+        }
+    }
 }

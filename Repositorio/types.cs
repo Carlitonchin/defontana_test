@@ -63,3 +63,22 @@ public class BestLocal{
         this.Monto);
     }
 }
+
+public class BestMarca{
+    int Costo{get;}
+    int Ventas{get;}
+    Marca Marca{get;}
+
+    public BestMarca(int costo, int ventas, Marca marca){
+        this.Costo = costo;
+        this.Ventas = ventas;
+        this.Marca = marca;
+    }
+
+    public override string ToString()
+    {
+        return String.Format("Mejor Marca: {0} | Costo: {1} | Ventas {2} | Margen de ganancia {3}",
+        this.Marca.IdMarca + " - " + this.Marca.Nombre,
+        this.Costo, this.Ventas, this.Ventas - this.Costo);
+    }
+}
